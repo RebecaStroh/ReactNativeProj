@@ -1,6 +1,7 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View} from 'react-native';
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
+import {SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View, Button, Image, TextInput} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Header from './components/Header.js';
 
 const styles = StyleSheet.create({
   sectionContainer: {
@@ -35,28 +36,108 @@ const Section = ({children, title}) => {
   );
 };
 
-export default App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+class Stars extends React.Component {
+  constructor (props) {
+    super(props);
+  }
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  render() {
+    let list = [];
+    let i;
+    for (i=1; i<=this.props.val; i++)
+      list.push(<Image style={this.props.style} accessibilityRole={'image'} source={require('./components/StarFull.png')}></Image>);
+    for (; i<=5; i++)
+      list.push(<Image style={this.props.style} accessibilityRole={'image'} source={require('./components/StarEmpty.png')}></Image>);
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
-        <Header />
-        <View style={{backgroundColor: isDarkMode ? Colors.black : Colors.white}}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+    return (
+      <Section>
+        {list}
+      </Section>
+    ) 
+  }
+}
+class NewTask extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const newStyle = StyleSheet.create({
+      outside: {
+        textAlign: 'center'
+      },
+      input: {
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+      },
+      star: {
+        height: 50,
+        width: 50,
+        resizeMode: 'cover',
+      }
+    });
+
+    return (
+      <View style={newStyle.outside}>
+        <Button title="< Voltar"/>
+        <Section title="Título">
+          <TextInput 
+            style= {newStyle.input}
+            placeholder="Insira seu titulo aqui" 
+            keyboardType="numeric">
+          </TextInput>
+        </Section> 
+        <Section title="Descrição">
+          <TextInput 
+            style= {newStyle.input}
+            placeholder="Insira sua descrição aqui" 
+            keyboardType="numeric">
+          </TextInput>
+        </Section> 
+        <Stars val='1' style={newStyle.star}></Stars>
+        <Button title="Add"/>
+      </View>
+    )
+  }
+}
+
+let isDarkMode = false;
+  
+let backgroundStyle = {
+  backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+};
+export default class App extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {tipo:'new'};
+    //isDarkMode = useColorScheme() === 'dark';
+  }
+
+  render() {
+    return (
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
+          <Header name={this.state.tipo == 'list'? 'Minhas Tarefas' : (this.state.tipo == 'new' ? 'Nova Tarefa' : 'Info') }/>
+          <View style={{backgroundColor: isDarkMode ? Colors.black : Colors.white}}>
+            {this.state.tipo == 'list'
+            ? 
+              <Section title="Step One">
+                Edit <Text style={styles.highlight}>App.js</Text> to change this
+                screen and then come back to see your edits.
+              </Section> 
+            : (this.state.tipo == 'new' ?
+              <NewTask></NewTask>
+            : 
+              <Section title="Step Three">
+                Edit <Text style={styles.highlight}>App.js</Text> to change this
+                screen and then come back to see your edits.
+              </Section> 
+            )}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
 };
