@@ -5,6 +5,7 @@ import NewTask from './components/NewTask.js';
 import Task from './components/Task.js';
 import TaskList from './components/TaskList.js';
 
+
 const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,

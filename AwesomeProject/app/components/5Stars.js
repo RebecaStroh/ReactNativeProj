@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image, Text} from 'react-native';
+import {Text} from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo';
 
 export default class Stars extends React.Component {
     constructor (props) {
@@ -10,12 +11,10 @@ export default class Stars extends React.Component {
         let list = [];
         let i;
         for (i=1; i<=this.props.val; i++)
-            list.push(<Image key={i} style={this.props.style} accessibilityRole={'image'} source={require('./StarFull.png')}></Image>);
+            list.push(<Icon key={i} name="star" style={this.props.style}/>);
         for (; i<=5; i++)
-            list.push(<Image key={i} style={this.props.style} accessibilityRole={'image'} source={require('./StarEmpty.png')}></Image>);
+            list.push(<Icon key={i} name="star-outlined" style={this.props.style}/>);
 
-        return (
-            <Text>{list}</Text>
-        ) 
+        return list;
     }
 }

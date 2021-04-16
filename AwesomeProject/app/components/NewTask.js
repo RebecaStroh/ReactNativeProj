@@ -8,31 +8,51 @@ import Stars from './5Stars.js';
 export default class NewTask extends React.Component {
     constructor(props) {
         super(props);
+
+        this.handleNew = this.handleNew.bind(this);
+    }
+
+    handleNew() {
+        alert('Salva');
+        this.props.back();
     }
 
     render() {
         const newStyle = StyleSheet.create({
-        outside: {
-            textAlign: 'center',
-            backgroundColor: this.props.isDarkMode ? Colors.black : Colors.white
-        },
-        input: {
-            height: 40,
-            margin: 12,
-            padding: 10,
-            borderWidth: 1,
-        },
-        star: {
-            height: 50,
-            width: 50,
-            resizeMode: 'cover',
-        }
+            outside: {
+                textAlign: 'center',
+                backgroundColor: this.props.isDarkMode ? Colors.black : Colors.white
+            },
+            input: {
+                height: 40,
+                margin: 12,
+                padding: 10,
+                borderWidth: 1,
+            },
+            star: {
+                fontSize: 60,
+                textAlign: 'center'
+            },
+            stars: {
+                padding:30,
+                flex:1,
+                flexDirection:'row',
+                justifyContent: 'center'
+            },
+            buttons: {
+                flex:1,
+                flexDirection:'row',
+                justifyContent: 'space-around'
+            }
         });
 
         return ( <>
         <Header name='Nova Tarefa'/>
         <View style={newStyle.outside}>
-            <Button title="< Voltar" onPress={this.props.back}/>
+            <View style={newStyle.buttons}>
+                <Button title="< Voltar" onPress={this.props.back}/>
+                <Button title="Add" onPress={this.handleNew}/>
+            </View> 
             <Section title="Título">
                 <TextInput 
                     style= {newStyle.input}
@@ -47,8 +67,9 @@ export default class NewTask extends React.Component {
                     keyboardType="numeric">
                 </TextInput>
             </Section> 
-            <Stars val='1' style={newStyle.star}></Stars>
-            <Button title="Add"/>
+            <View style={newStyle.stars}>
+                <Stars val='1' style={newStyle.star}></Stars>
+            </View>
         </View></>
         )
     }

@@ -13,7 +13,7 @@ export default class TaskList extends React.Component {
         return (<>
             <Header name='Minhas Tarefas'/>
             <View style={{backgroundColor: this.props.isDarkMode ? Colors.black : Colors.white}}>
-                <Button title="Add +" onPress={this.props.new}/>
+                <Button title="+" onPress={this.props.new}></Button>
                 <Section title="Step One">
                     <Text>Edit  to change this screen and then come back to see your edits.</Text>
                 </Section> 
