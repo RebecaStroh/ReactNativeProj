@@ -1,9 +1,12 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {SafeAreaView, ScrollView, StatusBar, StyleSheet} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import NewTask from './components/NewTask.js';
 import Task from './components/Task.js';
 import TaskList from './components/TaskList.js';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 
 const styles = StyleSheet.create({
@@ -24,11 +27,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 });
-
-let isDarkMode = false;
   
 let backgroundStyle = {
-  backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  backgroundColor: Colors.lighter,
 };
 export default class App extends React.Component {
   constructor (props) {
@@ -53,20 +54,31 @@ export default class App extends React.Component {
   }
 
   render() {
+    const Stack = createStackNavigator();
     return (
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
-          {this.state.tipo == 'list'
-          ? 
-            <TaskList isDarkMode={isDarkMode} new={this.handleClickNew} more={this.handleClickMore}></TaskList>
-          : (this.state.tipo == 'new' ?
-            <NewTask isDarkMode={isDarkMode} back={this.handleClickBack}></NewTask>
-          : 
-            <Task isDarkMode={isDarkMode} back={this.handleClickBack}></Task>
-          )}
-        </ScrollView>
-      </SafeAreaView>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="List" component={({ navigation }) => (<TaskList navigation={navigation} />)} />
+          <Stack.Screen name="New" component={({ navigation }) => (<NewTask navigation={navigation} />)} />
+          <Stack.Screen name="Info" component={({ navigation }) => (<Task navigation={navigation} />)} />
+        </Stack.Navigator>
+      </NavigationContainer>
     );
   }
 };
+{/* <StatusBar barStyle={'dark-content'} />
+<ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
+  {this.state.tipo == 'list'
+  ? 
+    <TaskList new={this.handleClickNew} more={this.handleClickMore}/>
+  : (this.state.tipo == 'new' ?
+    <NewTask back={this.handleClickBack}/>
+  : 
+    <Task back={this.handleClickBack}/>
+  )}
+</ScrollView> */}
+{/* <Stack.Navigator>
+        <Stack.Screen name="List" component={<TaskList/>} />
+        <Stack.Screen name="New" component={<NewTask/>} />
+        <Stack.Screen name="Info" component={<Task/>} />
+      </Stack.Navigator> */}

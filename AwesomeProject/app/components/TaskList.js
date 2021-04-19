@@ -1,4 +1,4 @@
-import React, { useCallback } from'react';
+import React from'react';
 import Header from './Header.js';
 import {Text, View, Button} from 'react-native';
 import {Colors, LearnMoreLinks} from 'react-native/Libraries/NewAppScreen';
@@ -41,9 +41,8 @@ export default class TaskList extends React.Component {
         getAll(this.isReady);
         
         return (<>
-            <Header name='Minhas Tarefas'/>
-            <View style={{backgroundColor: this.props.isDarkMode ? Colors.black : Colors.white}}>
-                <Button title="+" onPress={this.props.new}></Button>
+            <View style={{backgroundColor: Colors.white}}>
+                <Button title="+" onPress={() => this.props.navigation.navigate('New')}></Button>
                 {this.state == 'false' || this.list == []
                 ? <Text>Nenhuma task até o momento</Text>
                 : this.list

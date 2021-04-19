@@ -21,8 +21,7 @@ export default class Task extends React.Component {
     render() {
         return (<>
             <Header name='titulo'/>
-            <View style={{backgroundColor: this.props.isDarkMode ? Colors.black : Colors.white}}>
-                <Button title="< Voltar" onPress={this.props.back}/>
+            <View style={{backgroundColor: Colors.white}}>
                 <Section title="Conteúdo:">
                     <Text>oi</Text>
                 </Section> 
