@@ -1,19 +1,22 @@
 import React, { useCallback } from'react';
 import Header from './Header.js';
 import {Text, View, Button} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Colors, LearnMoreLinks} from 'react-native/Libraries/NewAppScreen';
 import Section from './Section.js';
 import AsyncStorage from '@react-native-community/async-storage';
 
-getAll = async () => {
+getAll = async (callback) => {
     try {
         const keys = await AsyncStorage.getAllKeys()
+        const list = [];
         console.log(keys)
         for (k in keys) {
             const jsonValue = await AsyncStorage.getItem(keys[k])
-            console.log('{'+keys[k]+': '+jsonValue+'}')
+            const jsonObject = JSON.parse(jsonValue)
+            //console.log('{'+keys[k]+': '+jsonValue+'}')
+            list.push(<Section title={keys[k]}></Section>)
         }
-        return keys;
+        return callback(list);
     } catch(e) {
         // error reading value
         alert(e)
@@ -23,18 +26,28 @@ getAll = async () => {
 export default class TaskList extends React.Component {
     constructor (props) {
         super(props);
+
+        this.state = {ready: 'false'}
+        this.list = [];
+    }
+
+    isReady = (list) => {
+        this.setState = {ready: 'true'}
+        this.list = list;
+        console.log(list);
     }
 
     render() {
-        getAll()
+        getAll(this.isReady);
         
         return (<>
             <Header name='Minhas Tarefas'/>
             <View style={{backgroundColor: this.props.isDarkMode ? Colors.black : Colors.white}}>
                 <Button title="+" onPress={this.props.new}></Button>
-                <Section title="Step One">
-                    <Text>Edit  to change this screen and then come back to see your edits.</Text>
-                </Section> 
+                {this.state == 'false' || this.list == []
+                ? <Text>Nenhuma task até o momento</Text>
+                : this.list
+                }
             </View></>
         )
     }
