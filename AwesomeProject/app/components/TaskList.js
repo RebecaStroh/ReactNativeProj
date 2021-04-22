@@ -1,52 +1,69 @@
 import React from'react';
+import {FlatList, StyleSheet, Text, View, Button} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Header from './Header.js';
-import {Text, View, Button} from 'react-native';
-import {Colors, LearnMoreLinks} from 'react-native/Libraries/NewAppScreen';
+import Database from './Database.js';
 import Section from './Section.js';
-import AsyncStorage from '@react-native-community/async-storage';
+import Stars from './5Stars.js';
 
-getAll = async (callback) => {
-    try {
-        const keys = await AsyncStorage.getAllKeys()
-        const list = [];
-        console.log(keys)
-        for (k in keys) {
-            const jsonValue = await AsyncStorage.getItem(keys[k])
-            const jsonObject = JSON.parse(jsonValue)
-            //console.log('{'+keys[k]+': '+jsonValue+'}')
-            list.push(<Section title={keys[k]}></Section>)
-        }
-        return callback(list);
-    } catch(e) {
-        // error reading value
-        alert(e)
+const styles = StyleSheet.create({
+    stars: {
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    star: {
+        padding:0,
     }
-}
-
+})
 export default class TaskList extends React.Component {
     constructor (props) {
         super(props);
 
-        this.state = {ready: 'false'}
-        this.list = [];
+        this.props.navigation.setOptions({
+            headerRight: () => (
+                <Button title="Nova +" onPress={this.newTask}></Button>
+            ),
+        });
+
+        this.state = {data: ''}
+    }
+    
+    async componentWillMount() {
+        Database.getAll(this.isReady);
+    }
+
+    updatePage = () => {
+        Database.getAll(this.isReady);
+    }
+
+    newTask = () => {
+        this.props.navigation.navigate('Nova Tarefa', { onComplete: this.updatePage.bind(this)});
     }
 
     isReady = (list) => {
-        this.setState = {ready: 'true'}
-        this.list = list;
+        this.setState({data: list})
         console.log(list);
     }
 
-    render() {
-        getAll(this.isReady);
-        
+    InfoTask = (e, key) => {
+        this.props.navigation.navigate('Detalhes', { task: key, onComplete: this.updatePage.bind(this) });
+    }
+
+    render() {        
         return (<>
+            <Header name='Minhas Tarefas'/>
             <View style={{backgroundColor: Colors.white}}>
-                <Button title="+" onPress={() => this.props.navigation.navigate('New')}></Button>
-                {this.state == 'false' || this.list == []
-                ? <Text>Nenhuma task até o momento</Text>
-                : this.list
-                }
+                
+                <FlatList
+                    ListEmptyComponent={(<Section title='Nenhuma tarefa para mostar.'></Section>)}
+                    data={this.state.data}
+                    renderItem={({ item }) => <Section key={item.key} title={item.titulo}>
+                        <View style={styles.stars}>
+                            <Stars style={styles.star} val={item.nota} changeable='false'/>
+                            <Button title=">" onPress={(e) => this.InfoTask(e, item.key)}></Button>
+                        </View>
+                    </Section> }
+                    />
             </View></>
         )
     }

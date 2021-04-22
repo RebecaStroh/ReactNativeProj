@@ -1,19 +1,37 @@
 import React from 'react';
-import {Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 
 export default class Stars extends React.Component {
     constructor (props) {
         super(props);
+        this.state = {nota: 0};
+    }
+
+    async componentDidMount() {
+        this.setState({nota: this.props.val})
+    }
+
+    handlePress = (i) => {
+        this.setState({nota: i})
+        this.props.onChange(i);
     }
 
     render() {
         let list = [];
         let i;
-        for (i=1; i<=this.props.val; i++)
-            list.push(<Icon key={i} name="star" style={this.props.style}/>);
-        for (; i<=5; i++)
-            list.push(<Icon key={i} name="star-outlined" style={this.props.style}/>);
+        if (this.props.changeable == 'true') {
+            for (i=1; i<=this.state.nota; i++)
+                list.push(<Icon.Button color='black' key={i} name="star" style={this.props.style} 
+                                        backgroundColor='#ffffff' onPress={(e) => this.handlePress(this, i)}/>);
+            for (; i<=5; i++)
+                list.push(<Icon.Button color='black' key={i} name="star-outlined" style={this.props.style} 
+                                        backgroundColor='#ffffff' onPress={this.handlePress.bind(this, i)}/>);
+        } else {
+            for (i=1; i<=this.state.nota; i++)
+                list.push(<Icon.Button backgroundColor='#ffffff' color='black' key={i} name="star" style={this.props.style}/>);
+            for (; i<=5; i++)
+                list.push(<Icon.Button color='black' backgroundColor='#ffffff' key={i} name="star-outlined" style={this.props.style}/>);
+        }
 
         return list;
     }

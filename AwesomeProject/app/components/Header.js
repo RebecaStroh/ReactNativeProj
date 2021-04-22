@@ -33,7 +33,7 @@ export default class Header extends React.Component {
 const styles = StyleSheet.create({
     background: {
         paddingBottom: 40,
-        paddingTop: 96,
+        paddingTop: 76,
         paddingHorizontal: 32,
         backgroundColor: Colors.lighter,
     },

@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './Header.js';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {StyleSheet, View, Button, TextInput} from 'react-native';
+import Header from './Header.js';
 import Section from './Section.js';
 import Stars from './5Stars.js';
 import Database from './Database.js';
@@ -19,10 +19,10 @@ const newStyle = StyleSheet.create({
     },
     star: {
         fontSize: 60,
-        textAlign: 'center'
     },
     stars: {
         padding:30,
+        flexDirection: 'row',
         justifyContent: 'center'
     }
 });
@@ -36,11 +36,18 @@ export default class NewTask extends React.Component {
             descricao: '',
             nota: 0
         }
+
+        this.props.navigation.setOptions({
+            headerRight: () => (
+                <Button title="Add" onPress={this.handleNew}/>
+            ),
+        });
     }
 
     handleNew = () => {
         Database.storeData(this.value);
-        this.props.navigation.navigate('List')
+        this.props.route.params.onComplete();
+        this.props.navigation.navigate('Minhas Tarefas')
     }
 
     handleChangeTitle = (event) => {
@@ -51,14 +58,14 @@ export default class NewTask extends React.Component {
         this.value.descricao = event;
     }
 
-    handleChangeNota = (event) => {
-        this.value.nota = event;
+    handleChangeNota = (value) => {
+        this.value.nota = value;
     }
 
     render() {
         return ( <>
+        <Header name='Nova Tarefa'/>
         <View style={newStyle.outside}>
-            <Button title="Add" onPress={this.handleNew}/>
             <Section title="Título">
                 <TextInput 
                     style= {newStyle.input}
@@ -76,7 +83,7 @@ export default class NewTask extends React.Component {
                 </TextInput>
             </Section> 
             <View style={newStyle.stars}>
-                <Stars val='0' style={newStyle.star}></Stars>
+                <Stars val='0' style={newStyle.star} changeable='true' onChange={this.handleChangeNota}></Stars>
             </View>
         </View></>
         )
