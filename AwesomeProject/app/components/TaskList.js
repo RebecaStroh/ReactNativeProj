@@ -42,7 +42,6 @@ export default class TaskList extends React.Component {
 
     isReady = (list) => {
         this.setState({data: list})
-        console.log(list);
     }
 
     InfoTask = (e, key) => {
