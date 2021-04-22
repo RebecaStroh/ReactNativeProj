@@ -30,11 +30,11 @@ export default class Task extends React.Component {
                 <Button title="Delete" onPress={this.handleDelete}/>
             ),
         });
-        console.log(props)
+        
         this.state = {data: ''}
     }
     
-    async componentWillMount() {
+    async componentDidMount() {
         Database.getTask(this.props.route.params.task).then((data) => this.setState({data: data}));
     }
 

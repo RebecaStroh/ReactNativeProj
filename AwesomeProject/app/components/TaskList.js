@@ -28,7 +28,7 @@ export default class TaskList extends React.Component {
         this.state = {data: ''}
     }
     
-    async componentWillMount() {
+    async componentDidMount() {
         Database.getAll(this.isReady);
     }
 

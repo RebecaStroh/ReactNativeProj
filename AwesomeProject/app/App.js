@@ -5,6 +5,18 @@ import Task from './components/Task.js';
 import TaskList from './components/TaskList.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+const List = ({ route, navigation }) => {
+  return <TaskList navigation={navigation} ></TaskList>
+}
+
+const New = ({ route, navigation }) => {
+  return <NewTask navigation={navigation} route={route}/>
+}
+
+const Info = ({ route, navigation }) => {
+  return <Task navigation={navigation} route={route}/>
+}
 export default class App extends React.Component {
   constructor (props) {
     super(props);
@@ -15,9 +27,9 @@ export default class App extends React.Component {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Minhas Tarefas" component={({ route, navigation }) => (<TaskList navigation={navigation} />)} />
-          <Stack.Screen name="Nova Tarefa" component={({ route, navigation }) => (<NewTask navigation={navigation} route={route}/>)} />
-          <Stack.Screen name="Detalhes" component={({ route, navigation }) => (<Task navigation={navigation} route={route}/>)} />
+          <Stack.Screen name="Minhas Tarefas" component={List} />
+          <Stack.Screen name="Nova Tarefa" component={New} />
+          <Stack.Screen name="Detalhes" component={Info} />
         </Stack.Navigator>
       </NavigationContainer>
     );
