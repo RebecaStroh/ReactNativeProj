@@ -9,7 +9,7 @@ import Section from '../components/Section.js';
 
 const styles = StyleSheet.create({
     outside: {
-        paddingBottom: '80%',
+        flex:1,
         backgroundColor: Colors.white,
         textAlignVertical: 'center'
     },

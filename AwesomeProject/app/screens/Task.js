@@ -9,7 +9,7 @@ import Database from '../lib/Database.js';
 
 const newStyle = {
     outside: {
-        paddingBottom: '80%',
+        flex:1,
         backgroundColor: Colors.white
     },
     input: {
