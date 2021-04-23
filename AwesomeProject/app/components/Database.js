@@ -11,7 +11,7 @@ const storeData = async (value) => {
     }
 }
 
-const getAll = async (callback) => {
+const getAll = async () => {
     try {
         const keys = await AsyncStorage.getAllKeys()
         const list = [];
@@ -21,7 +21,7 @@ const getAll = async (callback) => {
             jsonObject.key = keys[k];
             list.push(jsonObject)
         }
-        return callback(list);
+        return list;
     } catch(e) {
         alert(e)
     }
@@ -48,7 +48,6 @@ const deleteTask = async (key) => {
 const clear = async () => {
     try {
         await AsyncStorage.clear();
-        alert('Database limpo');
     } catch (e) {
         alert(e);
     }

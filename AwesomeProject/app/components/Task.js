@@ -1,12 +1,17 @@
 import React from 'react'
 import {Alert, View, Text, Button} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Icon from 'react-native-vector-icons/Entypo';
 import Section from './Section.js';
 import Header from './Header.js';
 import Stars from './5Stars.js';
 import Database from './Database.js';
 
 const newStyle = {
+    outside: {
+        paddingBottom: '80%',
+        backgroundColor: Colors.white
+    },
     input: {
         height: 40,
         margin: 12,
@@ -25,9 +30,11 @@ export default class Task extends React.Component {
     constructor(props) {
         super(props);
 
+        
         this.props.navigation.setOptions({
             headerRight: () => (
-                <Button title="Delete" onPress={this.handleDelete}/>
+                <Icon.Button name="trash" color='black' backgroundColor='#ffffff'
+                                        onPress={this.handleDelete}/>
             ),
         });
         
@@ -54,7 +61,7 @@ export default class Task extends React.Component {
     render() {
         return (<>
             <Header name={this.state.data.titulo}/>
-            <View style={{backgroundColor: Colors.white}}>
+            <View style={newStyle.outside}>
                 <Section title="Conteúdo:">
                     <Text style={{ fontSize: 20}}>{this.state.data.descricao}</Text>
                 </Section> 
