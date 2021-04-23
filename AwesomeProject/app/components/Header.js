@@ -8,27 +8,9 @@
  * @format
  */
 
+import React from 'react';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Text, StyleSheet, ImageBackground} from 'react-native';
-import React from 'react';
-
-export default class Header extends React.Component {
-    constructor (props) {
-        super(props);
-    }
-
-    render() {
-        return (
-        <ImageBackground
-            accessibilityRole={'image'}
-            source={require('./logo.png')}
-            style={styles.background}
-            imageStyle={styles.logo}>
-            <Text style={styles.text}>{this.props.name}</Text>
-        </ImageBackground>
-        )
-    }
-};
 
 const styles = StyleSheet.create({
     background: {
@@ -51,3 +33,21 @@ const styles = StyleSheet.create({
         color: Colors.black,
     },
 });
+
+export default class Header extends React.Component {
+    constructor (props) {
+        super(props);
+    }
+
+    render() {
+        return (
+        <ImageBackground
+            accessibilityRole={'image'}
+            source={require('../images/logo.png')}
+            style={styles.background}
+            imageStyle={styles.logo}>
+            <Text style={styles.text}>{this.props.name}</Text>
+        </ImageBackground>
+        )
+    }
+};

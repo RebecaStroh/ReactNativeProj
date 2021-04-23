@@ -1,10 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import NewTask from './components/NewTask.js';
-import Task from './components/Task.js';
-import TaskList from './components/TaskList.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Task from './screens/Task.js';
+import NewTask from './screens/NewTask.js';
+import TaskList from './screens/TaskList.js';
 
 const List = ({ route, navigation }) => {
   return <TaskList navigation={navigation} ></TaskList>

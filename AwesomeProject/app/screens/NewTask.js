@@ -1,12 +1,12 @@
 import React from 'react';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {Alert, StyleSheet, View, Button, TextInput} from 'react-native';
-import Header from './Header.js';
-import Section from './Section.js';
-import Stars from './5Stars.js';
-import Database from './Database.js';
 import Icon from 'react-native-vector-icons/Entypo';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Alert, StyleSheet, View, TextInput} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import Database from '../lib/Database.js';
+import Stars from '../components/5Stars.js';
+import Header from '../components/Header.js';
+import Section from '../components/Section.js';
 
 const newStyle = StyleSheet.create({
     outside: {

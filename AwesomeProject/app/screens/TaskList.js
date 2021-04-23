@@ -1,11 +1,11 @@
 import React from'react';
-import {Alert, FlatList, StyleSheet, Text, View, Button} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/Entypo';
-import Header from './Header.js';
-import Database from './Database.js';
-import Section from './Section.js';
-import Stars from './5Stars.js';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {Alert, FlatList, StyleSheet, View} from 'react-native';
+import Database from '../lib/Database.js';
+import Stars from '../components/5Stars.js';
+import Header from '../components/Header.js';
+import Section from '../components/Section.js';
 
 const styles = StyleSheet.create({
     outside: {

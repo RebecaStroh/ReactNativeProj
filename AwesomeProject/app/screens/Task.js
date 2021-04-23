@@ -1,11 +1,11 @@
 import React from 'react'
-import {Alert, View, Text, Button} from 'react-native';
+import {Alert, View, Text} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/Entypo';
-import Section from './Section.js';
-import Header from './Header.js';
-import Stars from './5Stars.js';
-import Database from './Database.js';
+import Section from '../components/Section.js';
+import Header from '../components/Header.js';
+import Stars from '../components/5Stars.js';
+import Database from '../lib/Database.js';
 
 const newStyle = {
     outside: {
