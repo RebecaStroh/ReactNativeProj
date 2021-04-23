@@ -49,9 +49,8 @@ export default class Task extends React.Component {
         Alert.alert("Confirmação", "Deseja realmente deletar esta tarefa ?", [
             {text: "Sim", onPress: () => {
                 Database.deleteTask(this.props.route.params.task).then(() => {
-                    alert("Tarefa deletada")
-                    this.props.route.params.onComplete();
-                    this.props.navigation.navigate('Minhas Tarefas');
+                    alert("Tarefa deletada");
+                    this.props.navigation.navigate('Minhas Tarefas', { data: 'needs update' });
                 }); 
             }},
             {text: "Não", onPress: () => {}}

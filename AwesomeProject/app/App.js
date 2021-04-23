@@ -7,7 +7,7 @@ import NewTask from './screens/NewTask.js';
 import TaskList from './screens/TaskList.js';
 
 const List = ({ route, navigation }) => {
-  return <TaskList navigation={navigation} ></TaskList>
+  return <TaskList navigation={navigation} route={route}></TaskList>
 }
 
 const New = ({ route, navigation }) => {
@@ -26,7 +26,7 @@ export default class App extends React.Component {
     const Stack = createStackNavigator();
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{title: ''}}>
           <Stack.Screen name="Minhas Tarefas" component={List} />
           <Stack.Screen name="Nova Tarefa" component={New} />
           <Stack.Screen name="Detalhes" component={Info} />

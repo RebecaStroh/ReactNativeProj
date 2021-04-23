@@ -51,6 +51,13 @@ export default class TaskList extends React.Component {
         Database.getAll().then((list) => this.isReady(list));
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.route.params?.data !== this.props.route.params?.data) {
+            this.updatePage();
+            this.props.route.params.data = 'up to date';
+        }
+    }
+
     updatePage = () => {
         Database.getAll().then((list) => this.isReady(list));
     }
@@ -72,11 +79,11 @@ export default class TaskList extends React.Component {
     }
 
     newTask = () => {
-        this.props.navigation.navigate('Nova Tarefa', { onComplete: this.updatePage.bind(this)});
+        this.props.navigation.navigate('Nova Tarefa');
     }
 
     InfoTask = (e, key) => {
-        this.props.navigation.navigate('Detalhes', { task: key, onComplete: this.updatePage.bind(this) });
+        this.props.navigation.navigate('Detalhes', { task: key });
     }
 
     render() {        

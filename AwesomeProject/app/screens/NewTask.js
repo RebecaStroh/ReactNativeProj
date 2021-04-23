@@ -53,8 +53,7 @@ export default class NewTask extends React.Component {
             Alert.alert("Falta Informação", "O titulo é obrigatório.", [{text: "OK"}]);
         else
             Database.storeData(this.value).then(() => {
-                this.props.route.params.onComplete();
-                this.props.navigation.navigate('Minhas Tarefas');
+                this.props.navigation.navigate('Minhas Tarefas', { data: 'needs update' });
             });
     }
 
